@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ff356d" />
+  <meta name="description" content="Kasih rating paling jujur untuk cowok yang satu ini. Tenang, semua nilai diterima dengan hati yang kuat (katanya)." />
+  <title>Rate Aku 💘</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-decor" aria-hidden="true">
+    <span>♥</span><span>♡</span><span>♥</span><span>♡</span><span>♥</span><span>♡</span>
+  </div>
+
+  <main class="shell">
+    <section class="hero-card" aria-labelledby="page-title">
+      <div class="eyebrow">SURVEI PALING PENTING HARI INI</div>
+
+      <button class="avatar-wrap" id="avatarButton" type="button" aria-label="Tap foto untuk kejutan kecil">
+        <span class="avatar-glow" aria-hidden="true"></span>
+        <img src="assets/rifqi-avatar.jpg" alt="Foto wajah Rifqi tersenyum" class="avatar" />
+        <span class="avatar-badge" aria-hidden="true">💘</span>
+      </button>
+
+      <h1 id="page-title">Sejauh ini, aku<br /><span>dapet nilai berapa?</span></h1>
+      <p class="hero-copy">
+        Rate aku sebagai cowok yang somehow muncul di hidup kamu. Dari
+        <strong>“bro who invited him 💀”</strong> sampai <strong>“wait... kok aku suka?”</strong>.
+      </p>
+
+      <div class="mini-note" role="note">
+        <span aria-hidden="true">💌</span>
+        <strong>Rate sejujurnya. Aku kuat kok.</strong> <span class="mini-note-sub">(unless kamu kasih 3, mungkin kita perlu ngobrol)</span>
+      </div>
+    </section>
+
+    <form id="ratingForm" class="rating-card" novalidate>
+      <div class="section-heading">
+        <div>
+          <p class="step-label">LANGKAH 1</p>
+          <h2>Pilih rating 1–10</h2>
+        </div>
+        <span class="selected-pill" id="selectedPill" aria-live="polite">Belum pilih</span>
+      </div>
+
+      <div class="rating-grid" id="ratingGrid" role="group" aria-label="Pilihan rating dari 1 sampai 10"></div>
+
+      <div class="meaning-card" id="meaningCard" aria-live="polite">
+        <div class="meaning-placeholder">
+          <div class="big-heart" aria-hidden="true">♡</div>
+          <p>Tap angkanya. Jangan overthinking, ini bukan ujian masuk PTN.</p>
+          <small>aku cuma akan sedikit judge pilihanmu 👀</small>
+        </div>
+      </div>
+
+      <div class="meter-wrap" id="meterWrap" aria-hidden="true">
+        <div class="meter-labels"><span>who is this man 💀</span><span>oh no... I like him 🫠</span></div>
+        <div class="meter"><div class="meter-fill" id="meterFill"></div></div>
+      </div>
+
+      <div class="section-heading second-step">
+        <div>
+          <p class="step-label">LANGKAH 2 · OPSIONAL</p>
+          <h2>Kasih catatan kecil</h2>
+        </div>
+      </div>
+
+      <label class="field">
+        <span>Namamu / nama samaran</span>
+        <input id="senderName" name="name" type="text" maxlength="40" autocomplete="name" placeholder="Drop your @... eh nama maksudnya 👀" />
+      </label>
+
+      <label class="field">
+        <span>Pesan tambahan</span>
+        <textarea id="message" name="message" rows="4" maxlength="280" placeholder="spill dong... kenapa bukan 10? atau kenapa bisa 10? 👀"></textarea>
+        <small><span id="charCount">0</span>/280</small>
+      </label>
+
+      <input type="text" name="_honey" id="honey" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+      <button class="submit-btn" id="submitBtn" type="submit" disabled>
+        <span class="submit-icon" aria-hidden="true">♥</span>
+        <span id="submitText">Kirim sebelum berubah pikiran 💌</span>
+      </button>
+
+      <p class="privacy-note">Hasil rating akan dikirim ke email pemilik halaman ini.</p>
+    </form>
+
+    <footer>
+      <p>dibuat demi riset hubungan yang sangat ilmiah <span aria-hidden="true">♡</span></p>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+
+  <dialog class="low-rating-dialog" id="lowRatingDialog" aria-labelledby="lowRatingTitle">
+    <div class="low-rating-inner">
+      <div class="low-rating-sticker" aria-hidden="true">EMOTIONAL DAMAGE CHECKPOINT</div>
+
+      <div class="meme-card" aria-label="Reaction meme">
+        <p id="lowRatingMemeTop" class="meme-top"></p>
+        <div id="lowRatingMemeEmoji" class="meme-emoji" aria-hidden="true"></div>
+        <p id="lowRatingMemeBottom" class="meme-bottom"></p>
+      </div>
+
+      <p class="step-label">WAIT A MINUTE...</p>
+      <h2 id="lowRatingTitle"></h2>
+      <p id="lowRatingBody" class="low-rating-body"></p>
+      <p id="lowRatingExtra" class="low-rating-extra"></p>
+
+      <div class="low-rating-actions">
+        <button class="rethink-btn" id="rethinkRating" type="button"></button>
+        <button class="confirm-low-btn" id="confirmLowRating" type="button"></button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="success-dialog" id="successDialog">
+    <div class="dialog-inner">
+      <button class="dialog-close" id="dialogClose" type="button" aria-label="Tutup">×</button>
+      <div class="success-emoji" aria-hidden="true">💖</div>
+      <p class="step-label">RATING TERKIRIM</p>
+      <h2 id="successTitle">Waduh, jadi senyum sendiri.</h2>
+      <p id="successCopy">Makasih udah jujur. Data ini akan diproses oleh departemen perasaan.</p>
+      <button class="secondary-btn" id="rateAgain" type="button">Lihat rating lagi</button>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
